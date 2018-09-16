@@ -9,7 +9,7 @@ DASHBOARD_VERSION=v1.10.0
 HEAPSTER_GRAFANA_VERSION=v5.0.4
 HEAPSTER_VERSION=v1.5.4
 HEAPSTER_INFLUXDB_VERSION=v1.5.2
-
+HELM_TILLER_VERSION=v2.9.1
 
 ############ 拉取镜像
 docker pull anjia0532/google-containers.kube-apiserver-amd64:${K8S_VERSION}
@@ -25,7 +25,7 @@ docker pull anjia0532/google-containers.coredns:${COREDNS_VERSION}
 #docker pull anjia0532/google-containers.heapster-grafana-amd64:${HEAPSTER_GRAFANA_VERSION}
 #docker pull anjia0532/google-containers.heapster-amd64:${HEAPSTER_VERSION}
 #docker pull anjia0532/google-containers.heapster-influxdb-amd64:${HEAPSTER_INFLUXDB_VERSION}
-
+#docker pull  anjia0532/kubernetes-helm.tiller:${HELM_TILLER_VERSION} 
 
 ############### 修改tag
 docker tag anjia0532/google-containers.kube-apiserver-amd64:${K8S_VERSION}  k8s.gcr.io/kube-apiserver-amd64:${K8S_VERSION}
@@ -41,6 +41,7 @@ docker tag anjia0532/google-containers.coredns:${COREDNS_VERSION}   k8s.gcr.io/c
 #docker tag anjia0532/google-containers.heapster-grafana-amd64:${HEAPSTER_GRAFANA_VERSION} k8s.gcr.io/heapster-grafana-amd64:${HEAPSTER_GRAFANA_VERSION}
 #docker tag anjia0532/google-containers.heapster-amd64:${HEAPSTER_VERSION}  k8s.gcr.io/heapster-amd64:${HEAPSTER_VERSION}
 #docker tag anjia0532/google-containers.heapster-influxdb-amd64:${HEAPSTER_INFLUXDB_VERSION} k8s.gcr.io/heapster-influxdb-amd64:${HEAPSTER_INFLUXDB_VERSION}
+#docker tag anjia0532/kubernetes-helm.tiller:${HELM_TILLER_VERSION}  gcr.io/kubernetes-helm/tiller:${HELM_TILLER_VERSION}
 
 ############### 删除镜像
 docker rmi anjia0532/google-containers.kube-apiserver-amd64:${K8S_VERSION}
@@ -56,3 +57,4 @@ docker rmi anjia0532/google-containers.coredns:${COREDNS_VERSION}
 #docker rmi anjia0532/google-containers.heapster-grafana-amd64:${HEAPSTER_GRAFANA_VERSION}
 #docker rmi anjia0532/google-containers.heapster-amd64:${HEAPSTER_VERSION}
 #docker rmi anjia0532/google-containers.heapster-influxdb-amd64:${HEAPSTER_INFLUXDB_VERSION}
+#docker rmi anjia0532/kubernetes-helm.tiller:${HELM_TILLER_VERSION}
