@@ -61,6 +61,6 @@ kubectl config set-context kubernetes \
 kubectl config use-context kubernetes --kubeconfig=kubectl.kubeconfig
   
   
-# 拷贝 kubeconfig 配置文件
+# 拷贝 kubeconfig 配置文件到使用 kubectl 命令的节点
 mkdir -p ~/.kube
 cp /root/kubectl/kubectl.kubeconfig ~/.kube/
