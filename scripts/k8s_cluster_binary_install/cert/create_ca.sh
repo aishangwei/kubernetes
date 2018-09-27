@@ -68,6 +68,6 @@ EOF
 cd /root/ca/ && cfssl gencert -initca ca-csr.json | cfssljson -bare ca
 
 
-## 拷贝文件
+## 拷贝 CA 证书，密钥，配置文件到所有节点
 cp /root/ca/ca*.pem /root/ca/ca-config.json  /etc/kubernetes/cert/ && chown k8s /etc/kubernetes/cert
 
