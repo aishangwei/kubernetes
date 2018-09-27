@@ -2,6 +2,9 @@
 
 source ./00_cluster_env.sh
 
+# 拷贝证书文件
+cp /root/flanneld/flanneld*.pem   /etc/flanneld/cert/
+
 mkdir flannel
 wget https://github.com/coreos/flannel/releases/download/v0.10.0/flannel-v0.10.0-linux-amd64.tar.gz
 tar -xzvf flannel-v0.10.0-linux-amd64.tar.gz -C flannel
