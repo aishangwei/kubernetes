@@ -45,7 +45,6 @@ sudo timedatectl set-timezone Asia/Shanghai
 sudo timedatectl set-local-rtc 0
 sudo systemctl restart rsyslog
 sudo systemctl restart crond
-sudo mkdir -p /var/lib/etcd && chown -R k8s /etc/etcd/cert
 
 # 添加 k8s和docker用户
 sudo useradd -m k8s
