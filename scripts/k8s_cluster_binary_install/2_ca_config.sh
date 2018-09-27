@@ -62,13 +62,7 @@ cat > /root/ca/ca-csr.json <<EOF
 EOF
 
 # 生成CA证书和私钥
-cd /root/ca/ && ccfssl gencert -initca ca-csr.json | cfssljson -bare ca
+cd /root/ca/ && cfssl gencert -initca ca-csr.json | cfssljson -bare ca
 
 # 拷贝文件
 cp /root/ca/ca*.pem /root/ca/ca-config.json  /etc/kubernetes/cert && chown k8s /etc/kubernetes/cert
-
-
-
-
-
-
