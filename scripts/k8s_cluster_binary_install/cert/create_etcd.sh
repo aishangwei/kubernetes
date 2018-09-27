@@ -37,7 +37,7 @@ cfssl gencert -ca=/etc/kubernetes/cert/ca.pem \
     -profile=kubernetes etcd-csr.json | cfssljson -bare etcd
     
     
-# 拷贝证书
+# 拷贝证书到所有的 ETCD 节点
 mkdir -p /etc/etcd/cert 
 cp /root/etcd*.pem /etc/etcd/cert/ && chown -R k8s /etc/etcd/cert 
     
