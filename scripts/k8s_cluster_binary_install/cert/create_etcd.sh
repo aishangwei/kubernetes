@@ -1,5 +1,6 @@
 #!/bin/bash
 
+source ../00_cluster_env.sh
 
 # 创建证书签名请求
 mkdir /root/etcd
