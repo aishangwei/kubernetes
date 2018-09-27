@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-source ./00_cluster_env.sh
+source ../00_cluster_env.sh
 
 
 ## 安装 cfssl
