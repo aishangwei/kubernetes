@@ -1,12 +1,12 @@
 #!/bin/bash
 
-source ./0_cluster_env.sh
+source ./00_cluster_env.sh
 
-# 主机名解析
+# 主机名解析,由于我的Master和node,etcd安装在一起，所以就只写了master
 cat >> /etc/hosts <<EOF
-$HOST1    $HOST1N
-$HOST2    $HOST2N
-$HOST3    $HOST3N
+$MASTER1    $MASTER1N
+$MASTER2    $MASTER2N
+$MASTER3    $MASTER3N
 EOF
 
 # 关闭SELINUX
@@ -22,7 +22,7 @@ sudo swapoff -a
 sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 
 # 关闭 dnsmasq
-sudo service dnsmasq stop && systemctl disable dnsmasq
+#sudo service dnsmasq stop && systemctl disable dnsmasq
 
 # 加载内核模块
 sudo modprobe br_netfilter  && modprobe ip_vs
@@ -73,7 +73,7 @@ cat > /etc/docker/daemon.json <<EOF
 }
 EOF
 
-echo 'PATH=/opt/k8s/bin:\$PATH' > /etc/profile.d/k8s.sh
+echo 'PATH=/opt/k8s/bin:$PATH' > /etc/profile.d/k8s.sh
 
 # 安装依赖软件
 sudo  yum install -y epel-release
