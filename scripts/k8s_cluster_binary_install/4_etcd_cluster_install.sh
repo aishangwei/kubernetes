@@ -1,5 +1,22 @@
 #!/bin/bash
 
+###### 全局变量，根据自己的需要修改
+
+# ETCD 集群IP
+ETCD1=192.168.20.141
+ETCD2=192.168.20.142
+ETCD3=192.168.20.143
+ETCD1N="c720141"
+ETCD2N="c720142"
+ETCD3N="c720143"
+
+# 本机ETCD IP
+LOCAL_HOST=192.168.20.141
+LOCAL_HOSTNAME=c729141
+
+#######
+
+
 # 安装 etcd
 wget https://github.com/coreos/etcd/releases/download/v3.3.9/etcd-v3.3.9-linux-amd64.tar.gz
 tar -xvf etcd-v3.3.9-linux-amd64.tar.gz
@@ -21,7 +38,7 @@ Type=notify
 WorkingDirectory=/var/lib/etcd/
 ExecStart=/opt/k8s/bin/etcd \\
   --data-dir=/var/lib/etcd \\
-  --name=##NODE_NAME## \\
+  --name=${LOCAL_HOSTNAME} \\
   --cert-file=/etc/etcd/cert/etcd.pem \\
   --key-file=/etc/etcd/cert/etcd-key.pem \\
   --trusted-ca-file=/etc/kubernetes/cert/ca.pem \\
@@ -30,12 +47,12 @@ ExecStart=/opt/k8s/bin/etcd \\
   --peer-trusted-ca-file=/etc/kubernetes/cert/ca.pem \\
   --peer-client-cert-auth \\
   --client-cert-auth \\
-  --listen-peer-urls=https://##NODE_IP##:2380 \\
-  --initial-advertise-peer-urls=https://##NODE_IP##:2380 \\
-  --listen-client-urls=https://##NODE_IP##:2379,http://127.0.0.1:2379 \\
-  --advertise-client-urls=https://##NODE_IP##:2379 \\
+  --listen-peer-urls=https://${LOCAL_HOST}:2380 \\
+  --initial-advertise-peer-urls=https://${LOCAL_HOST}:2380 \\
+  --listen-client-urls=https://${LOCAL_HOST}:2379,http://127.0.0.1:2379 \\
+  --advertise-client-urls=https://${LOCAL_HOST}:2379 \\
   --initial-cluster-token=etcd-cluster-0 \\
-  --initial-cluster=${ETCD_NODES} \\
+  --initial-cluster="${ETCD1N}=https://${ETCD1}:2380,${ETCD2N}=https://${ETCD2}:2380,${ETCD3N}=https://${ETCD3}:2380" \\
   --initial-cluster-state=new
 Restart=on-failure
 RestartSec=5
@@ -46,50 +63,9 @@ WantedBy=multi-user.target
 EOF
 
 
-
-
-
-
-
-source ./0_cluster_env.sh
-
-# 创建证书签名请求
-mkdir /root/etcd
-cat > /root/etcd/etcd-csr.json <<EOF
-{
-  "CN": "etcd",
-  "hosts": [
-    "127.0.0.1",
-    "$HOST1",
-    "$host2",
-    "$host3"
-  ],
-  "key": {
-    "algo": "rsa",
-    "size": 2048
-  },
-  "names": [
-    {
-      "C": "CN",
-      "ST": "BeiJing",
-      "L": "BeiJing",
-      "O": "k8s",
-      "OU": "4Paradigm"
-    }
-  ]
-}
-EOF
-
-# 生成证书
-cd /root/etcd
-cfssl gencert -ca=/etc/kubernetes/cert/ca.pem \
-    -ca-key=/etc/kubernetes/cert/ca-key.pem \
-    -config=/etc/kubernetes/cert/ca-config.json \
-    -profile=kubernetes etcd-csr.json | cfssljson -bare etcd
-
 # 拷贝证书
 mkdir -p /etc/etcd/cert 
-cp /root/etcd/etcd*.pem /etc/etcd/cert && chown -R k8s /etc/etcd/cert
+cp /root/etcd*.pem /etc/etcd/cert && chown -R k8s /etc/etcd/cert
 
 
 
