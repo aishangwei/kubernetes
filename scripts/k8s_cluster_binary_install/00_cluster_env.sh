@@ -1,5 +1,8 @@
 
 
+# kube_apiserver IP，如果有代理，填代理地址
+KUBE_APISERVER=182.168.20.151
+
 
 # ETCD 集群IP
 ETCD1=192.168.20.141
