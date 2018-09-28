@@ -3,8 +3,8 @@
 source ../00_cluster_env.sh
 
 # 创建证书签名请求
-mkdir /root/etcd
-cat > /root/etcd/etcd-csr.json <<EOF
+mkdir ~/etcd
+cat > ~/etcd/etcd-csr.json <<EOF
 {
   "CN": "etcd",
   "hosts": [
@@ -30,16 +30,14 @@ cat > /root/etcd/etcd-csr.json <<EOF
 EOF
 
 # 生成证书
-cd /root/etcd
+cd ~/etcd
 cfssl gencert -ca=/etc/kubernetes/cert/ca.pem \
     -ca-key=/etc/kubernetes/cert/ca-key.pem \
     -config=/etc/kubernetes/cert/ca-config.json \
     -profile=kubernetes etcd-csr.json | cfssljson -bare etcd
     
     
-# 拷贝证书到所有的 ETCD 节点
-mkdir -p /etc/etcd/cert 
-cp /root/etcd*.pem /etc/etcd/cert/ && chown -R k8s /etc/etcd/cert 
+
     
     
     
