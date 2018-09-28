@@ -20,8 +20,8 @@ export PATH=/opt/k8s/bin:$PATH
 
 
 ## 创建根证书配置文件
-mkdir /root/ca
-cat > /root/ca/ca-config.json <<EOF
+mkdir ~/ca
+cat > ~/ca/ca-config.json <<EOF
 {
   "signing": {
     "default": {
@@ -44,7 +44,7 @@ EOF
 
 
 ## 创建 证书签名请求文件
-cat > /root/ca/ca-csr.json <<EOF
+cat > ~/ca/ca-csr.json <<EOF
 {
   "CN": "kubernetes",
   "key": {
@@ -65,9 +65,6 @@ EOF
 
 
 ## 生成CA证书和私钥
-cd /root/ca/ && cfssl gencert -initca ca-csr.json | cfssljson -bare ca
+cd ~/ca/ && cfssl gencert -initca ca-csr.json | cfssljson -bare ca
 
-
-## 拷贝 CA 证书，密钥，配置文件到所有节点
-cp /root/ca/ca*.pem /root/ca/ca-config.json  /etc/kubernetes/cert/ && chown k8s /etc/kubernetes/cert
 
