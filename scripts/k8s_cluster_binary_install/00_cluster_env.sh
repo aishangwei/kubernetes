@@ -59,7 +59,8 @@ VIP_IF="eth0"
 # kube-apiserver 的 VIP（HA 组件 keepalived 发布的 IP）
 MASTER_VIP=192.168.20.150
 
-
+# 生成 EncryptionConfig 所需的加密 key
+ENCRYPTION_KEY=$(head -c 32 /dev/urandom | base64)
 
 
 
