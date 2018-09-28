@@ -124,3 +124,14 @@ scp keepalived-master.conf root@${MASTER1}:/etc/keepalived/keepalived.conf
 # 拷贝 keepalived backup 配置文件
 scp keepalived-backup.conf root@${MASTER2}:/etc/keepalived/keepalived.conf
 scp keepalived-backup.conf root@${MASTER3}:/etc/keepalived/keepalived.conf
+
+
+# 启动 keepalived 服务
+source ../00_cluster_env.sh
+for ip in ${MASTER_IPS[@]}
+  do
+    echo ">>> ${ip}"
+    ssh root@${ip} "systemctl restart keepalived && systemctl enable keepalived"
+  done
+
+
