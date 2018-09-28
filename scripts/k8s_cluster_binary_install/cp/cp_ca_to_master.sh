@@ -7,6 +7,6 @@ for ip in ${MASTER_IPS[@]}
   do
     echo ">>> ${ip}"
     ssh root@${ip} "mkdir -p /etc/kubernetes/cert && chown -R k8s /etc/kubernetes"
-    scp ca*.pem ca-config.json k8s@${ip}:/etc/kubernetes/cert
+    scp ~/ca/ca*.pem ~/ca/ca-config.json k8s@${ip}:/etc/kubernetes/cert
   done
   
