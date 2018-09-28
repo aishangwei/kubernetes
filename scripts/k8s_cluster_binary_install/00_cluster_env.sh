@@ -62,11 +62,14 @@ MASTER_VIP=192.168.20.150
 # 生成 EncryptionConfig 所需的加密 key
 ENCRYPTION_KEY=$(head -c 32 /dev/urandom | base64)
 
+# 服务网段，部署前路由不可达，部署后集群内路由可达(kube-proxy 和 ipvs 保证)
+SERVICE_CIDR="10.254.0.0/16"
 
+# 服务端口范围 (NodePort Range)
+NODE_PORT_RANGE="8400-9000"
 
-
-
-
+# MASTER 集群主机名
+MASTER_NAMES=($MASTER1N $MASTER2N $MASTER3N)
 
 
 
