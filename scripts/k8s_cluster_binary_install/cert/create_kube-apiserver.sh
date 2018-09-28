@@ -3,8 +3,8 @@
 source ../00_cluster_env.sh
 
 # 创建证书签名请求
-mkdir /root/kubernetes
-cat > /root/kubernetes/kubernetes-csr.json <<EOF
+mkdir ~/kube-apiserver
+cat > ~/kube-apiserver/kubernetes-csr.json <<EOF
 {
   "CN": "kubernetes",
   "hosts": [
@@ -38,23 +38,9 @@ EOF
 
 
 # 生成证书和私钥
-cd /root/kubernetes
+cd ~/kube-apiserver
 cfssl gencert -ca=/etc/kubernetes/cert/ca.pem \
   -ca-key=/etc/kubernetes/cert/ca-key.pem \
   -config=/etc/kubernetes/cert/ca-config.json \
   -profile=kubernetes kubernetes-csr.json | cfssljson -bare kubernetes
-
-
-# 将生成的证书和私钥拷贝到所有 master 节点
-cd /root/kubernetes
-cp kubernetes*.pem  /etc/kubernetes/cert  && chown -R k8s  /etc/kubernetes/cert
-
-
-
-
-
-
-
-
-
 
