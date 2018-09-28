@@ -5,8 +5,8 @@ source ../00_cluster_env.sh
 
 
 # 创建 admin 证书和私钥
-mkdir -p /root/kubectl && cd /root/kubectl
-cat > /root/kubectl/admin-csr.json <<EOF
+mkdir -p ~/kubectl 
+cat > ~/kubectl/admin-csr.json <<EOF
 {
   "CN": "admin",
   "hosts": [],
@@ -27,7 +27,7 @@ cat > /root/kubectl/admin-csr.json <<EOF
 EOF
 
 # 生成证书和私钥
-cd /root/kubectl
+cd ~/kubectl
 cfssl gencert -ca=/etc/kubernetes/cert/ca.pem \
   -ca-key=/etc/kubernetes/cert/ca-key.pem \
   -config=/etc/kubernetes/cert/ca-config.json \
@@ -37,6 +37,7 @@ cfssl gencert -ca=/etc/kubernetes/cert/ca.pem \
 # 创建 kubeconfig 文件
 
 # 设置集群参数
+cd ~/kubectl
 kubectl config set-cluster kubernetes \
   --certificate-authority=/etc/kubernetes/cert/ca.pem \
   --embed-certs=true \
@@ -44,7 +45,7 @@ kubectl config set-cluster kubernetes \
   --kubeconfig=kubectl.kubeconfig
   
 # 设置客户端认证参数
-cd /root/kubectl
+cd ~/kubectl
 kubectl config set-credentials admin \
   --client-certificate=admin.pem \
   --client-key=admin-key.pem \
@@ -52,15 +53,14 @@ kubectl config set-credentials admin \
   --kubeconfig=kubectl.kubeconfig
   
 # 设置上下文参数
+cd ~/kubectl
 kubectl config set-context kubernetes \
   --cluster=kubernetes \
   --user=admin \
   --kubeconfig=kubectl.kubeconfig
   
 # 设置默认上下文
+cd ~/kubectl
 kubectl config use-context kubernetes --kubeconfig=kubectl.kubeconfig
   
   
-# 拷贝 kubeconfig 配置文件到使用 kubectl 命令的节点
-mkdir -p ~/.kube
-cp /root/kubectl/kubectl.kubeconfig ~/.kube/
