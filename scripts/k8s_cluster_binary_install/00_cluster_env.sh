@@ -40,6 +40,9 @@ ETCD_NAMES=($ETCD1N $ETCD2N $ETCD3N)
 # etcd 集群间通信的 IP 和端口
 ETCD_NODES="${ETCD1N}=https://${ETCD1}:2380,${ETCD2N}=https://${ETCD2}:2380,${ETCD3N}=https://${ETCD3}:2380"
 
+# etcd 集群服务地址列表
+ETCD_ENDPOINTS="https://${ETCD1}:2379,https://${ETCD2}:2379,https://${ETCD3}:2379"
+
 
 # kube-apiserver 的 VIP（HA 组件 keepalived 发布的 IP）
 MASTER_VIP=192.168.20.151
@@ -50,8 +53,6 @@ KUBE_APISERVER="https://${MASTER_VIP}:8443"
 # kubernetes 服务 IP (一般是 SERVICE_CIDR 中第一个IP)
 CLUSTER_KUBERNETES_SVC_IP="10.254.0.1"
 
-# etcd 集群服务地址列表
-ETCD_ENDPOINTS="https://${ETCD1}:2379,https://${ETCD2}:2379,https://${ETCD3}:2379"
 
 # flanneld 网络配置前缀
 FLANNEL_ETCD_PREFIX="/kubernetes/network"
