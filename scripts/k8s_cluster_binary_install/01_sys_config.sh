@@ -7,6 +7,14 @@ cat >> /etc/hosts <<EOF
 $MASTER1    $MASTER1N
 $MASTER2    $MASTER2N
 $MASTER3    $MASTER3N
+
+$NODE1      $NODE1N
+$NODE2      $NODE2N
+$NODE3      $NODE3N
+
+$ETCD1      $ETCD1N
+$ETCD2      $ETCD2N
+$ETCD3      $ETCD3N
 EOF
 
 # 关闭SELINUX
