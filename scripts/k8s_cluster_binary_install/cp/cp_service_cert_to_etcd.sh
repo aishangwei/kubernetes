@@ -5,7 +5,7 @@ source ../00_cluster_env.sh
 for ip in ${ETCD_IPS[@]}
   do
     echo ">>> ${ip}"
-    scp etcd-v3.3.9-linux-amd64/etcd* k8s@${node_ip}:/opt/k8s/bin
+    scp ../deploy/etcd-v3.3.9-linux-amd64/etcd* k8s@${node_ip}:/opt/k8s/bin
     ssh k8s@${node_ip} "chmod +x /opt/k8s/bin/*"
   done
 
@@ -24,7 +24,7 @@ for ip in ${ETCD_IPS[@]}
   do
     echo ">>> ${ip}"
     ssh root@${ip} "mkdir -p /var/lib/etcd && chown -R k8s /var/lib/etcd" 
-    scp etcd-${ip}.service root@${ip}:/etc/systemd/system/etcd.service
+    scp ../deploy/etcd-${ip}.service root@${ip}:/etc/systemd/system/etcd.service
   done
 
 
@@ -34,7 +34,7 @@ for ip in ${ETCD_IPS[@]}
   do
     echo ">>> ${ip}"
     ssh root@${ip} "mkdir -p /etc/etcd/cert && chown -R k8s /etc/etcd/cert"
-    scp etcd*.pem k8s@${ip}:/etc/etcd/cert/
+    scp ../cert/etcd*.pem k8s@${ip}:/etc/etcd/cert/
   done
 
 
