@@ -19,7 +19,7 @@ Type=notify
 WorkingDirectory=/var/lib/etcd/
 ExecStart=/opt/k8s/bin/etcd \\
   --data-dir=/var/lib/etcd \\
-  --name=##NODE_NAME## \\
+  --name=##ETCD_NAME## \\
   --cert-file=/etc/etcd/cert/etcd.pem \\
   --key-file=/etc/etcd/cert/etcd-key.pem \\
   --trusted-ca-file=/etc/kubernetes/cert/ca.pem \\
@@ -28,10 +28,10 @@ ExecStart=/opt/k8s/bin/etcd \\
   --peer-trusted-ca-file=/etc/kubernetes/cert/ca.pem \\
   --peer-client-cert-auth \\
   --client-cert-auth \\
-  --listen-peer-urls=https://##NODE_IP##:2380 \\
-  --initial-advertise-peer-urls=https://##NODE_IP##:2380 \\
-  --listen-client-urls=https://##NODE_IP##:2379,http://127.0.0.1:2379 \\
-  --advertise-client-urls=https://##NODE_IP##:2379 \\
+  --listen-peer-urls=https://##ETCD_IP##:2380 \\
+  --initial-advertise-peer-urls=https://##ETCD_IP##:2380 \\
+  --listen-client-urls=https://##ETCD_IP##:2379,http://127.0.0.1:2379 \\
+  --advertise-client-urls=https://##ETCD_IP##:2379 \\
   --initial-cluster-token=etcd-cluster-0 \\
   --initial-cluster=${ETCD_NODES} \\
   --initial-cluster-state=new
