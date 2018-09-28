@@ -9,9 +9,9 @@ cat > /root/kubernetes/kubernetes-csr.json <<EOF
   "CN": "kubernetes",
   "hosts": [
     "127.0.0.1",
-    "172.27.129.105",
-    "172.27.129.111",
-    "172.27.129.112",
+    "${MASTER1}",
+    "${MASTER2}",
+    "${MASTER3}",
     "${MASTER_VIP}",
     "${CLUSTER_KUBERNETES_SVC_IP}",
     "kubernetes",
