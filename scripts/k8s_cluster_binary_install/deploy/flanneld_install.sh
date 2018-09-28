@@ -7,6 +7,8 @@ tar -xzvf flannel-v0.10.0-linux-amd64.tar.gz -C flannel
 
 
 export IFACE=eth0
+
+source ../00_cluster_env.sh
 cat > flanneld.service << EOF
 [Unit]
 Description=Flanneld overlay address etcd agent
