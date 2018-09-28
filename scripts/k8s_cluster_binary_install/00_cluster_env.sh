@@ -26,12 +26,14 @@ ETCD3N="c720143"
 
 
 
+# kube-apiserver 的 VIP（HA 组件 keepalived 发布的 IP）
+MASTER_VIP=192.168.20.151
 
+# kube-apiserver VIP 地址（HA 组件 haproxy 监听 8443 端口）
+KUBE_APISERVER="https://${MASTER_VIP}:8443"
 
-# kube_apiserver IP，如果有代理，填代理地址
-KUBE_APISERVER=192.168.20.151
-
-
+# kubernetes 服务 IP (一般是 SERVICE_CIDR 中第一个IP)
+CLUSTER_KUBERNETES_SVC_IP="10.254.0.1"
 
 # etcd 集群服务地址列表
 ETCD_ENDPOINTS="https://${ETCD1}:2379,https://${ETCD2}:2379,https://${ETCD3}:2379"
