@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./00_cluster_env.sh
+source ../00_cluster_env.sh
 
 # 创建证书签名请求
 mkdir ~/flanneld
@@ -22,8 +22,7 @@ cat > ~/flanneld/flanneld-csr.json <<EOF
     }
   ]
 }
-EOF   
-
+EOF
 
 # 生成证书和私钥
 cd ~/flanneld/
