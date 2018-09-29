@@ -3,8 +3,8 @@
 source ../00_cluster_env.sh
 
 # 创建证书签名请求
-mkdir /root/kube-controller-manager
-cat > /root/kube-controller-manager/kube-controller-manager-csr.json <<EOF
+mkdir ~/kube-controller-manager
+cat > ~/kube-controller-manager/kube-controller-manager-csr.json <<EOF
 {
     "CN": "system:kube-controller-manager",
     "key": {
@@ -31,20 +31,16 @@ EOF
 
 
 # 生成证书和私钥
-cd /root/kube-controller-manager
+cd ~/kube-controller-manager
 cfssl gencert -ca=/etc/kubernetes/cert/ca.pem \
   -ca-key=/etc/kubernetes/cert/ca-key.pem \
   -config=/etc/kubernetes/cert/ca-config.json \
   -profile=kubernetes kube-controller-manager-csr.json | cfssljson -bare kube-controller-manager
 
 
-# 将生成的证书和私钥拷贝到所有master 节点
-cp /root/kube-controller-manager*.pem /etc/kubernetes/cert/
-chown -R k8s /etc/kubernetes/cert
-
 
 # 创建 kubeconfig 文件
-cd /root/kube-controller-manager/
+cd ~/kube-controller-manager/
 kubectl config set-cluster kubernetes \
   --certificate-authority=/etc/kubernetes/cert/ca.pem \
   --embed-certs=true \
@@ -63,15 +59,4 @@ kubectl config set-context system:kube-controller-manager \
   --kubeconfig=kube-controller-manager.kubeconfig
 
 kubectl config use-context system:kube-controller-manager --kubeconfig=kube-controller-manager.kubeconfig
-
-
-# 拷贝 kubeconfig 文件到所有 master 节点
-cp kube-controller-manager.kubeconfig /etc/kubernetes/
-chown -R k8s /etc/kubernetes
-
-
-
-
-
-
 
