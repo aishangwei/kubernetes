@@ -32,7 +32,16 @@ for node_name in ${NODE_NAMES[@]}
 kubectl create clusterrolebinding kubelet-bootstrap --clusterrole=system:node-bootstrapper --group=system:bootstrappers
 
 
-
+# 启动服务
+source ../00_cluster_env.sh
+for node_ip in ${NODE_IPS[@]}
+  do
+    echo ">>> ${node_ip}"
+    ssh root@${node_ip} "mkdir -p /var/lib/kubelet"
+    ssh root@${node_ip} "/usr/sbin/swapoff -a"
+    ssh root@${node_ip} "mkdir -p /var/log/kubernetes && chown -R k8s /var/log/kubernetes"
+    ssh root@${node_ip} "systemctl daemon-reload && systemctl enable kubelet && systemctl restart kubelet"
+  done
 
 
 
