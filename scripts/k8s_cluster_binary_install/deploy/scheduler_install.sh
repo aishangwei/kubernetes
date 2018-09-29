@@ -1,0 +1,36 @@
+#!/bin/bash
+
+
+cat > kube-scheduler.service <<EOF
+[Unit]
+Description=Kubernetes Scheduler
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+
+[Service]
+ExecStart=/opt/k8s/bin/kube-scheduler \\
+  --address=127.0.0.1 \\
+  --kubeconfig=/etc/kubernetes/kube-scheduler.kubeconfig \\
+  --leader-elect=true \\
+  --alsologtostderr=true \\
+  --logtostderr=false \\
+  --log-dir=/var/log/kubernetes \\
+  --v=2
+Restart=on-failure
+RestartSec=5
+User=k8s
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
+
+
+
+
+
+
+
+
+
+
