@@ -13,7 +13,8 @@ for ip in ${MASTER_IPS[@]}
     ssh root@${ip} "systemctl daemon-reload && systemctl enable kube-apiserver && systemctl restart kube-apiserver"
   done
 
-
+# 授予 kubernetes 证书访问 kubelet API
+kubectl create clusterrolebinding kube-apiserver:kubelet-apis --clusterrole=system:kubelet-api-admin --user kubernetes
 
 
 
