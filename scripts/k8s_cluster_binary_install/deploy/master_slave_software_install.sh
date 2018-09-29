@@ -11,7 +11,7 @@ for ip in ${MASTER_IPS[@]}
   do
     echo ">>> ${ip}"
     scp server/bin/* k8s@${ip}:/opt/k8s/bin/
-    ssh k8s@${node_ip} "chmod +x /opt/k8s/bin/*"
+    ssh k8s@${ip} "chmod +x /opt/k8s/bin/*"
   done
 
 
