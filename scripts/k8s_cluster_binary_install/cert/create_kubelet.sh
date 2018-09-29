@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source ../00_cluster_env.sh
+mkdir ~/kubelet && cd ~/kubelet
 for node_name in ${NODE_NAMES[@]}
   do
     echo ">>> ${node_name}"
