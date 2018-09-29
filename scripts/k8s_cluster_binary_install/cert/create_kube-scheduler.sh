@@ -3,8 +3,8 @@
 source ../00_cluster_env.sh
 
 # 创建证书签名请求
-mkdir /root/kube-scheduler
-cat > /root/kube-scheduler/kube-scheduler-csr.json <<EOF
+mkdir ~/kube-scheduler
+cat > ~/kube-scheduler/kube-scheduler-csr.json <<EOF
 {
     "CN": "system:kube-scheduler",
     "hosts": [
@@ -31,7 +31,7 @@ EOF
 
 
 # 生成证书和私钥
-cd /root/kube-scheduler
+cd ~/kube-scheduler
 cfssl gencert -ca=/etc/kubernetes/cert/ca.pem \
   -ca-key=/etc/kubernetes/cert/ca-key.pem \
   -config=/etc/kubernetes/cert/ca-config.json \
@@ -39,7 +39,7 @@ cfssl gencert -ca=/etc/kubernetes/cert/ca.pem \
 
 
 # 创建 kubeconfig 文件
-cd /root/kube-scheduler
+cd ~/kube-scheduler
 kubectl config set-cluster kubernetes \
   --certificate-authority=/etc/kubernetes/cert/ca.pem \
   --embed-certs=true \
@@ -59,9 +59,7 @@ kubectl config set-context system:kube-scheduler \
 
 kubectl config use-context system:kube-scheduler --kubeconfig=kube-scheduler.kubeconfig
 
-# 拷贝配置 kubeconfig 到所有 master 节点
-cp /root/kube-scheduler/kube-scheduler.kubeconfig /etc/kubernetes/
-chown -R k8s  /etc/kubernetes
+
 
 
 
