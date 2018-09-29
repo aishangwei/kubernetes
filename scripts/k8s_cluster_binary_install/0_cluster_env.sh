@@ -10,7 +10,7 @@ HOST3N="c720143"
 
 
 # kube-apiserver 的 VIP（HA 组件 keepalived 发布的 IP）
-export MASTER_VIP=192.168.20.151
+export MASTER_VIP=192.168.20.150
 
 # HA 节点，VIP 所在的网络接口名称
 export VIP_IF="eth0"
