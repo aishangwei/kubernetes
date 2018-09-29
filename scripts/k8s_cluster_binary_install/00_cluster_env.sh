@@ -23,6 +23,9 @@ ETCD1N="c720151"
 ETCD2N="c720152"
 ETCD3N="c720153"
 
+# kube-apiserver 的 VIP（HA 组件 keepalived 发布的 IP）
+MASTER_VIP=192.168.20.150
+
 # 所有节点IP
 ALL_IPS=($MASTER1 $MASTER2 $MASTER3 $ETCD1 $ETCD2 $ETCD3 $NODE1 $NODE2 $NODE3)
 
@@ -55,9 +58,6 @@ CLUSTER_CIDR="172.30.0.0/16"
 
 # Haproxy 节点，VIP 所在的网络接口名称
 VIP_IF="eth0"
-
-# kube-apiserver 的 VIP（HA 组件 keepalived 发布的 IP）
-MASTER_VIP=192.168.20.150
 
 # 生成 EncryptionConfig 所需的加密 key
 ENCRYPTION_KEY=$(head -c 32 /dev/urandom | base64)
