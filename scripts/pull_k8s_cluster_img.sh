@@ -12,6 +12,8 @@ HEAPSTER_INFLUXDB_VERSION=v1.5.2
 HELM_TILLER_VERSION=v2.9.1
 METRICS_VERSION=v0.2.1
 ADDON_RESIZER_VERSION=1.8.1
+ELASTICSEARCH_VERSION=v5.6.4
+FLUENTD_VERSION=v2.0.4
 
 
 ############ 拉取镜像
@@ -31,6 +33,9 @@ docker pull anjia0532/google-containers.coredns:${COREDNS_VERSION}
 #docker pull anjia0532/kubernetes-helm.tiller:${HELM_TILLER_VERSION} 
 #docker pull anjia0532/metrics-server-amd64:${METRICS_VERSION}
 #docker pull anjia0532/addon-resizer:${ADDON_RESIZER_VERSION}
+#docker pull anjia0532/elasticsearch:${ELASTICSEARCH_VERSION}
+#docker pull anjia0532/fluentd-elasticsearch:${FLUENTD_VERSION}
+
 
 ############### 修改tag
 docker tag anjia0532/google-containers.kube-apiserver-amd64:${K8S_VERSION}  k8s.gcr.io/kube-apiserver-amd64:${K8S_VERSION}
@@ -49,6 +54,8 @@ docker tag anjia0532/google-containers.coredns:${COREDNS_VERSION}   k8s.gcr.io/c
 #docker tag anjia0532/kubernetes-helm.tiller:${HELM_TILLER_VERSION}  gcr.io/kubernetes-helm/tiller:${HELM_TILLER_VERSION}
 #docker tag anjia0532/metrics-server-amd64:${METRICS_VERSION}  k8s.gcr.io/metrics-server-amd64:${METRICS_VERSION}
 #docker tag anjia0532/addon-resizer:${ADDON_RESIZER_VERSION}  k8s.gcr.io/addon-resizer:${ADDON_RESIZER_VERSION}
+#docker tag anjia0532/elasticsearch:${ELASTICSEARCH_VERSION}  k8s.gcr.io/elasticsearch:${ELASTICSEARCH_VERSION}
+#docker tag anjia0532/fluentd-elasticsearch:${FLUENTD_VERSION}  k8s.gcr.io/fluentd-elasticsearch:${FLUENTD_VERSION}
 
 ############### 删除镜像
 docker rmi anjia0532/google-containers.kube-apiserver-amd64:${K8S_VERSION}
@@ -67,3 +74,6 @@ docker rmi anjia0532/google-containers.coredns:${COREDNS_VERSION}
 #docker rmi anjia0532/kubernetes-helm.tiller:${HELM_TILLER_VERSION}
 #docker rmi anjia0532/metrics-server-amd64:${METRICS_VERSION}
 #docker rmi anjia0532/addon-resizer:${ADDON_RESIZER_VERSION} 
+#docker rmi anjia0532/elasticsearch:${ELASTICSEARCH_VERSION}
+#docker rmi anjia0532/fluentd-elasticsearch:${FLUENTD_VERSION}
+
