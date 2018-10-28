@@ -4,11 +4,11 @@ kind: Pod
 spec:
   containers:
   - name: kubectl
-    image: vfarcic/kubectl
+    image: aishangwei/kubectl
     command: ["sleep"]
     args: ["100000"]
   - name: oc
-    image: vfarcic/openshift-client
+    image: aishangwei/openshift-client
     command: ["sleep"]
     args: ["100000"]
   - name: golang
@@ -16,7 +16,7 @@ spec:
     command: ["sleep"]
     args: ["100000"]
   - name: helm
-    image: vfarcic/helm:2.8.2
+    image: aishangwei/helm:2.8.2
     command: ["sleep"]
     args: ["100000"]
 """
