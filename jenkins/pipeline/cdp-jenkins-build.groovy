@@ -16,7 +16,7 @@ node("docker") {
       usernameVariable: "USER",
       passwordVariable: "PASS"
     )]) {
-      sh """sudo docker login $HARBOR\
+      sh """sudo docker login ${env.HARBOR}\
         -u $USER -p $PASS"""
     }
     sh """sudo docker image push \
