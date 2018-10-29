@@ -1,9 +1,9 @@
 import java.text.SimpleDateFormat
 
 currentBuild.displayName = new SimpleDateFormat("yy.MM.dd").format(new Date()) + "-" + env.BUILD_NUMBER
-env.REPO = "https://github.com/aishangwei/go-test-3.git"
+env.REPO = "https://github.com/vfarcic/go-demo-3.git"
 env.HARBOR = "c720174.xiodi.cn"
-env.IMAGE = "c720174.xiodi.cn/go-test-3"
+env.IMAGE = "c720174.xiodi.cn/go-demo-3"
 env.TAG_BETA = "${currentBuild.displayName}-${env.BRANCH_NAME}"
 
 node("docker") {
