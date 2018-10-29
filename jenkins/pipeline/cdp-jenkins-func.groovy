@@ -1,16 +1,16 @@
 import java.text.SimpleDateFormat
 
 currentBuild.displayName = new SimpleDateFormat("yy.MM.dd").format(new Date()) + "-" + env.BUILD_NUMBER
-env.REPO = "https://github.com/aishangwei/go-test-3.git"
-env.IMAGE = "c720174.xiodi.cn/go-test-3"
-env.ADDRESS = "go-test-3-${env.BUILD_NUMBER}-${env.BRANCH_NAME}.aishangwei.net"
+env.REPO = "https://github.com/vfarcic/go-demo-3.git"
+env.IMAGE = "vfarcic/go-demo-3"
+env.ADDRESS = "go-demo-3-${env.BUILD_NUMBER}-${env.BRANCH_NAME}.acme.com"
 env.TAG_BETA = "${currentBuild.displayName}-${env.BRANCH_NAME}"
 env.CHART_NAME = "go-demo-3-${env.BUILD_NUMBER}-${env.BRANCH_NAME}"
 def label = "jenkins-slave-${UUID.randomUUID().toString()}"
 
 podTemplate(
   label: label,
-  namespace: "go-test-3-build",
+  namespace: "go-demo-3-build",
   serviceAccount: "build",
   yaml: """
 apiVersion: v1
@@ -18,11 +18,11 @@ kind: Pod
 spec:
   containers:
   - name: helm
-    image: aishangwei/helm:2.9.1
+    image: vfarcic/helm:2.9.1
     command: ["cat"]
     tty: true
   - name: kubectl
-    image: aishangwei/kubectl
+    image: vfarcic/kubectl
     command: ["cat"]
     tty: true
   - name: golang
@@ -42,7 +42,7 @@ spec:
           usernameVariable: "USER",
           passwordVariable: "PASS"
         )]) {
-          sh """sudo docker login c720174.xiodi.cn\
+          sh """sudo docker login \
             -u $USER -p $PASS"""
         }
         sh """sudo docker image push \
@@ -55,7 +55,7 @@ spec:
           git "${env.REPO}"
           sh """helm upgrade \
             ${env.CHART_NAME} \
-            helm/go-test-3 -i \
+            helm/go-demo-3 -i \
             --tiller-namespace go-demo-3-build \
             --set image.tag=${env.TAG_BETA} \
             --set ingress.host=${env.ADDRESS} \
