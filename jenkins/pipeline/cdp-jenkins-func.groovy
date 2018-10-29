@@ -2,7 +2,8 @@ import java.text.SimpleDateFormat
 
 currentBuild.displayName = new SimpleDateFormat("yy.MM.dd").format(new Date()) + "-" + env.BUILD_NUMBER
 env.REPO = "https://github.com/vfarcic/go-demo-3.git"
-env.IMAGE = "vfarcic/go-demo-3"
+env.IMAGE = "aishangwei/go-demo-3"
+env.HARBOR = "c720174.xiodi.cn"
 env.ADDRESS = "go-demo-3-${env.BUILD_NUMBER}-${env.BRANCH_NAME}.acme.com"
 env.TAG_BETA = "${currentBuild.displayName}-${env.BRANCH_NAME}"
 env.CHART_NAME = "go-demo-3-${env.BUILD_NUMBER}-${env.BRANCH_NAME}"
@@ -18,11 +19,11 @@ kind: Pod
 spec:
   containers:
   - name: helm
-    image: vfarcic/helm:2.9.1
+    image: aishangwei/helm:2.9.1
     command: ["cat"]
     tty: true
   - name: kubectl
-    image: vfarcic/kubectl
+    image: aishangwei/kubectl
     command: ["cat"]
     tty: true
   - name: golang
@@ -42,7 +43,7 @@ spec:
           usernameVariable: "USER",
           passwordVariable: "PASS"
         )]) {
-          sh """sudo docker login \
+          sh """sudo docker login ${env.HARBOR} \
             -u $USER -p $PASS"""
         }
         sh """sudo docker image push \
