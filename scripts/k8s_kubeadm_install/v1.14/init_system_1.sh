@@ -27,9 +27,9 @@ yum install -y ntpdate
 ntpdate -u ntp.api.bz
 
 # 升级内核
-wget https://elrepo.org/linux/kernel/el7/x86_64/RPMS/kernel-ml-5.0.4-1.el7.elrepo.x86_64.rpm
-wget https://elrepo.org/linux/kernel/el7/x86_64/RPMS/kernel-ml-devel-5.0.4-1.el7.elrepo.x86_64.rpm
-yum -y install kernel-ml-5.0.4-1.el7.elrepo.x86_64.rpm kernel-ml-devel-5.0.4-1.el7.elrepo.x86_64.rpm
+# wget https://elrepo.org/linux/kernel/el7/x86_64/RPMS/kernel-ml-5.0.4-1.el7.elrepo.x86_64.rpm
+# wget https://elrepo.org/linux/kernel/el7/x86_64/RPMS/kernel-ml-devel-5.0.4-1.el7.elrepo.x86_64.rpm
+yum -y install /tmp/kernel-ml-5.0.4-1.el7.elrepo.x86_64.rpm /tmp/kernel-ml-devel-5.0.4-1.el7.elrepo.x86_64.rpm
 
 # 调整默认内核启动
 #cat /boot/grub2/grub.cfg |grep menuentry
