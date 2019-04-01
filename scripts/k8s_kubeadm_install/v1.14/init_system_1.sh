@@ -37,4 +37,4 @@ grub2-set-default "CentOS Linux (5.0.4-1.el7.elrepo.x86_64) 7 (Core)"
 
 # 检查是否修改正确
 #grub2-editenv list
-reboot
+#reboot
