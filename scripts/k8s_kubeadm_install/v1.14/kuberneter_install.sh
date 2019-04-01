@@ -13,6 +13,9 @@ curl -o  /etc/yum.repos.d/docker-ce.repo   https://mirrors.aliyun.com/docker-ce/
 
 yum -y install kubeadm-1.14.0 kubectl-1.14.0 kubelet-1.14.0  docker-ce-18.09.3-3.el7
 
+# 配置防火墙
+sed -i "13i ExecStartPost=/usr/sbin/iptables -P FORWARD ACCEPT" /usr/lib/systemd/system/docker.service
+
 # 创建文件夹
 if [ ! -d "/etc/docker" ];then
     mkdir -p /etc/docker
