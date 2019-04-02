@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: prometheus-rules
+  namespace: monitoring
+data:
+  cpu-usage.rules: |
+      groups:
+      - name: node_rules
+        rules:
+        - record: instance:node_cpu:avg_rate5m
+          expr: 100 - avg (irate(node_cpu_seconds_total{job="node",mode="idle"}[5m])) by (instance) * 100
