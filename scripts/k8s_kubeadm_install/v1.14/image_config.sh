@@ -14,7 +14,7 @@ EOF
 systemctl restart docker
 
 # 此处应当修改为registry所在机器的IP
-REGISTRY_HOST="192.168.20.221"
+REGISTRY_HOST="192.168.20.241"
 
 # 设置Hosts
 yes | cp /etc/hosts /etc/hosts_bak
