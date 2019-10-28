@@ -1,4 +1,4 @@
-$!/bin/bash
+#!/bin/bash
 
 # 确认内核版本后，开启 IPVS
 # uname -a
